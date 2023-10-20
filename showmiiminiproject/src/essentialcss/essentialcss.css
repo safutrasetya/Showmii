@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+p , button, a, label, input{
+    font-family: 'Roboto', sans-serif;
+    line-height: normal;
+    font-style: normal;
+    /* margin-bottom: -16px; */
+}
+
+.font-roboto{
+    font-family: 'Roboto', sans-serif;
+}
+.fonts16{
+    font-size: 16px;
+}
+
+a.linkies{
+    color: #FF006E;
+    text-decoration: none;
+}
+a.linkies:hover{
+    color: #f8e6ed;
+    cursor: pointer;
+}
+a.linkies:active{
+    color: #d30e63;
+    cursor: pointer;
+}
+
+.removemargin {
+    margin-bottom: -16px;
+}
+
+.fonts20{
+    font-size: 20px;
+}
+.fonts24{
+    font-size: 24px;
+}
+.fonts20{
+    font-size: 20px;
+}
+
+.fonts64{
+    font-size: 64px;
+}
+
+.fonts36{
+    font-size: 36px;
+}
+
+.fonts32{
+    font-size: 32px;
+}
+
+.fonts48{
+    font-size: 48px;
+}
+
+.fontw300{
+font-weight: 300;
+}
+
+.fontw700{
+    font-weight: 700;
+}
+
+.fontw500{
+    font-weight: 500;
+}
+
+.fontw900{
+    font-weight: 900;
+}
+
+.fontw800{
+    font-weight: 800;
+}
+
+.brand{
+    text-decoration: none ;
+    color: black;
+}
+
+.btn-classic{
+    padding: 11.5px 23px;
+    border-radius: 3rem;
+    border-style: none;
+}
+
+.btn-classic:hover{
+    filter: brightness(1.1);
+}
+
+.btn-classic:active{
+    filter: brightness(0.95);
+}
+
+.background-blue{
+    background-color: #BDE0FE;
+}
+
+.minimum-bg-height{
+    min-height: 80vh;
+}
+
+.main-container{
+    padding: 40px 120px 40px 120px;
+}
+
+.page-title{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}

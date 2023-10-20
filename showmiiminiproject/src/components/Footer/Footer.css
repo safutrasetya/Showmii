@@ -1,0 +1,16 @@
+.footercontainer{
+    background-color: #FEC8DC;
+    display: flex;
+    justify-content: space-between;
+    padding: 45px 80px;
+    align-items: center;
+    margin-top: auto;
+}
+
+.copyright{
+    margin-bottom: -16px;
+}
+
+.privacy-policy{
+    margin-bottom: -16px;
+}

@@ -1,0 +1,124 @@
+.container1{
+    padding: 40px 120px 220px 120px;
+    width: 100%;
+}
+.page-title{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+.upload-form-div{
+    display: flex;
+    justify-content: center;
+}
+
+.upload-form-subdiv{
+    display: inline-block;
+    width: 100%;
+}
+
+.form-part{
+    display: block;
+    margin-bottom: 25px;
+}
+
+.file-dragndrop-container{
+    padding: 30px 0px;
+    width: 100%;
+    background-color: white;
+    border-radius: 30px;
+    display: inline-block; 
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.sub-dragndrop{
+    display: flex;
+    justify-content: center;
+}
+
+.input-label{
+    color: black;
+    display: block;
+    margin-bottom: 15px;
+}
+.fileimage-input::-webkit-file-upload-button{
+    background-color: #3A86FF;
+    padding: 6px 21px;
+    border-radius: 30px;
+    border-style: none;
+
+}
+.fileimage-input::-webkit-file-upload-button:hover{
+    cursor: pointer;
+
+}
+.fileimage-input:hover{
+    filter: brightness(1.1);
+    cursor: pointer;
+
+}
+.fileimage-input{
+    content: 'as';
+    background-color: #D9D9D9;
+    border-radius: 30px;
+    padding: 5px 7px;
+    width: 450px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+.image-name-input{
+    display: inline;
+    width: 100%;
+    border-radius: 30px;
+    background-color: #FAFAFA;
+    height: 50px;
+    padding: 0px 25px;
+    border-style: none;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.image-name-input:focus , .image-desc-input:focus{
+    box-shadow: 0px 4px 4px 0px rgb(160, 107, 220);
+    outline: none;
+}
+
+.image-desc-input{
+    display: inline;
+    width: 100%;
+    border-radius: 30px;
+    background-color: #FAFAFA;
+    padding: 15px 30px;
+    border-style: none;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.cancel-btn{
+    background-color: #FFAFCC;
+    margin-right: 12px;
+    box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.25);
+
+    
+}
+
+.upload-btn{
+    background-color: #8338EC;
+    box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+.form-part-final{
+    display: flex;
+    justify-content: right;
+    margin-top: 65px;
+}
+
+.image-show1{
+    width: 550px;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.image-show1-container{
+    margin-bottom: 20px;
+}

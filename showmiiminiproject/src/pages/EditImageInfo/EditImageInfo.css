@@ -1,0 +1,72 @@
+.main-div{
+    display: flex;
+    width: 100%;
+}
+
+.sub-maindiv-image{
+    margin-right: 40px;
+    display: flex;
+}
+
+.image-show{
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 500px;
+    height: 100%;
+}
+
+.sub-maindiv-infos{
+    display: flex;
+    width: 100%;
+}
+
+.form-container{
+    display: inline-block;
+    width: 100%;
+}
+
+.form-part{
+    display: block;
+    margin-bottom: 25px;
+}
+
+.input-imagename{
+    display: inline;
+    width: 100%;
+    border-radius: 30px;
+    background-color: #FAFAFA;
+    height: 50px;
+    padding: 0px 25px;
+    border-style: none;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.input-imagedesc{
+    display: inline;
+    width: 100%;
+    border-radius: 30px;
+    background-color: #FAFAFA;
+    padding: 15px 30px;
+    border-style: none;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.input-imagename:focus , .input-imagedesc:focus{
+    box-shadow: 0px 4px 4px 0px rgb(160, 107, 220);
+    outline: none;
+}
+
+.form-part-final{
+    margin-top: 80px;
+}
+
+.cancel-btn{
+    background-color: #FFAFCC;
+    margin-right: 12px;
+    box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.finish-btn{
+    background-color: #8338EC;
+    box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.25);
+}

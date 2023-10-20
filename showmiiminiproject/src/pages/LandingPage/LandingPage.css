@@ -1,0 +1,79 @@
+.lpbackground {
+    background-color: #BDE0FE ;
+    padding: 105px 0px 100px 0px;
+}
+
+.jumbotron{
+    padding: 0px 140px 0px 140px;
+    display: flex;
+}
+
+.sub-jumbotron {
+    width: 50%;
+}
+
+.jumbotext {
+    padding: 0px 100px 0px 0px;
+}
+
+.jumbobtn {
+    /* display: flex;
+    justify-content: center; */
+    padding: 25px 0px 0px 75px;
+}
+
+.btn-jumbo{
+    padding: 25px 44px;
+    border-radius: 3rem;
+    color: white;
+    border-style: none;
+    background-color: #8338EC
+}
+.btn-jumbo:hover{
+    background-color: #9452f1
+}
+.btn-jumbo:active{
+    background-color: #9452f1
+}
+
+.jumbotronimg{
+    width: 600px;
+    height: 500px;
+    background-color: #8b7ca1;
+
+}
+
+.demo-container {
+    margin-top: 75px;
+    padding: 0px 80px 0px 80px;
+    justify-content: center;
+    /* display: inline; */
+}
+
+.demo-text {
+    display: flex;
+    justify-content: center;
+}
+.demo-img-container {
+    margin-top: 65px;
+    margin-bottom: 70px;
+    justify-content: center;
+    display: flex;
+}
+
+.demo-img {
+    width: 285px;
+    height: 590px;
+    margin: 0px 22.5px;
+    background-color: #8b7ca1;
+}
+
+.container-join{
+    padding: 0px 165px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-jumbo.join{
+    margin-left: 45px
+}

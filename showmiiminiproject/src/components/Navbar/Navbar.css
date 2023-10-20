@@ -1,0 +1,45 @@
+.navbtn{
+    padding: 11.5px 23px;
+    border-radius: 3rem;
+    color: white;
+    border-style: none;
+}
+
+.navbtnnotlast{
+    margin-right: 37px;
+}
+
+.navbtn.btn-purple{
+    background-color: #8338EC;
+}
+.navbtn.btn-purple:hover{
+    background-color: #9552f3;
+}
+.navbtn.btn-purple:active{
+    background-color: #631ac9;
+}
+
+.navbtn.btn-blue{
+    background-color: #3A86FF;
+}
+.navbtn.btn-blue:hover{
+    background-color: #5093ff;
+}
+.navbtn.btn-blue:active{
+    background-color: #246ee5;
+}
+
+.navbtn.btn-red{
+    background-color: #FF006E;
+}
+.navbtn.btn-red:hover{
+    background-color: rgb(255, 94, 142);
+}
+.navbtn.btn-red:active{
+    background-color: #d51b6c;
+}
+
+.navbar-container{
+    background-color: #CDB4DB ;
+    padding: 13px 44px;
+}
