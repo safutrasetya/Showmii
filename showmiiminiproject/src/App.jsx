@@ -7,6 +7,7 @@ import Explore from './pages/Explore/Explore';
 import DetailImage from './pages/DetailImage/DetailImage';
 import UploadImage from './pages/UploadImage/UploadImage';
 import EditImageInfo from './pages/EditImageInfo/EditImageInfo';
+// import { Modal } from './components/Modal/Modal';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +23,7 @@ function App() {
           <Route path='/detailimage'  element={<DetailImage/>}></Route>
           <Route path='/uploadimage'  element={<UploadImage/>}></Route>
           <Route path='/editdimageinfo'  element={<EditImageInfo/>}></Route>
+          {/* <Route path='/modaltest'  element={<Modal/>}></Route> */}
         </Routes>
       
       </BrowserRouter>

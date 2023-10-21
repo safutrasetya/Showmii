@@ -42,14 +42,23 @@
     width: 100%;
 }
 
-.form-part{
+.register-form-part{
     display: block;
     margin-bottom: 25px;
 }
 
+.register-input-label-container{
+    display: flex;
+    align-items: center;
+
+}
 .input-label{
     color: white;
     display: block;
+}
+.register-input-error{
+    margin-left: 10px;
+    color: red;
 }
 
 .input-text{

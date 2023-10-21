@@ -1,11 +1,67 @@
+import { useState } from "react"
 import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
 import "./Login.css"
 import { Link } from "react-router-dom"
 
 export default function Login(){
+    const [formInput, setFormInput] = useState({
+        username : "",
+        password : ""
+    })
+    const [error, setError] = useState({
+        errusername: "",
+        errpassword: ""
+    })
+    
+    function handleUsername(e){
+        setFormInput({...formInput, username : e.target.value})
+        console.log(formInput)
+    }
+    function handlePassword(e){
+        setFormInput({...formInput, password : e.target.value})
+        console.log(formInput)
+    }
 
+    function handleSubmit(e){
+        e.preventDefault()
 
+        // valdiasi
+        try{
+            const usernpattern = /[!@#$%^&*()_+\-=\[\]{}|\\;:'",<>\/?]/
+            
+            if(formInput.username == ""){
+                console.log("Username must not be empty!")
+                setError({...error,
+                    erremail: "",
+                    errusername: "Username must not be empty!",
+                    errpassword: ""
+                })
+            }else if(usernpattern.test(formInput.username)){
+                console.log("Username cant have special characters!")
+                setError({...error,
+                    erremail: "",
+                    errusername: "Username cant have special characters!",
+                    errpassword: ""
+                })
+            }else if(formInput.password == ""){
+                console.log("Password can not be empty.")
+                setError({...error,
+                    erremail: "",
+                    errusername: "",
+                    errpassword: "Password can not be empty."
+                })
+            }else{//if all valid
+                console.log("Data accepted : ", formInput)
+                setError({
+                    errusername: "",
+                    errpassword: ""
+                })
+            }
+        }catch(er){
+            console.log(er)
+        }
+    }
     
     
     
@@ -19,14 +75,20 @@ export default function Login(){
                     </div>
                     <div className="main-content">
                         <div className="main-content-block">
-                            <form action="#">
+                            <form onSubmit={handleSubmit}>
                                 <div className="form-part">
-                                    <label className="input-label fonts24 fontw500" htmlFor="username">Username</label>
-                                    <input className="input-text fonts20 " type="text" id="username"></input>
+                                    <div className="login-input-label-container">
+                                        <label className="input-label fonts24 fontw500" htmlFor="username">Username</label>
+                                        <p className="login-input-error fontw500">{error.errusername}</p>
+                                    </div>
+                                    <input onChange={handleUsername} className="input-text fonts20 " type="text" id="username"></input>
                                 </div>
                                 <div className="form-part">
-                                    <label className="input-label fonts24 fontw500" htmlFor="password">Password</label>
-                                    <input className="input-text fonts20" type="password" id="passwhord"></input>
+                                    <div className="login-input-label-container">
+                                        <label className="input-label fonts24 fontw500" htmlFor="password">Password</label>
+                                        <p className="login-input-error fontw500">{error.errpassword}</p>
+                                    </div>
+                                    <input onChange={handlePassword} className="input-text fonts20" type="password" id="passwhord"></input>
                                 </div>
                                 <div className="form-part">
                                     <div className="form-final-btn">

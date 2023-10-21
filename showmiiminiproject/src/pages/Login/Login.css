@@ -46,10 +46,19 @@
     display: block;
     margin-bottom: 25px;
 }
+.login-input-label-container{
+    display: flex;
+    align-items: center;
+
+}
 
 .input-label{
     color: white;
     display: block;
+}
+.login-input-error{
+    margin-left: 10px;
+    color: red;
 }
 
 .input-text{
