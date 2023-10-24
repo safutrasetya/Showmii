@@ -7,6 +7,7 @@ import Explore from './pages/Explore/Explore';
 import DetailImage from './pages/DetailImage/DetailImage';
 import UploadImage from './pages/UploadImage/UploadImage';
 import EditImageInfo from './pages/EditImageInfo/EditImageInfo';
+import Authentication from './components/Authentication/Authentication';
 // import { Modal } from './components/Modal/Modal';
 
 function App() {
@@ -16,13 +17,17 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/'  element={<LandingPage/>}></Route>
+          <Route path='/landingpage'  element={<LandingPage/>}></Route>
           <Route path='/login'  element={<Login/>}></Route>
           <Route path='/register'  element={<Register/>}></Route>
-          <Route path='/explore'  element={<Explore/>}></Route>
-          <Route path='/detailimage'  element={<DetailImage/>}></Route>
-          <Route path='/uploadimage'  element={<UploadImage/>}></Route>
-          <Route path='/editdimageinfo'  element={<EditImageInfo/>}></Route>
+
+          <Route path='/'  element={<Authentication/>}>
+            <Route path='/explore'  element={<Explore/>}></Route>
+            <Route path='/detailimage'  element={<DetailImage/>}></Route>
+            <Route path='/uploadimage'  element={<UploadImage/>}></Route>
+            <Route path='/editdimageinfo'  element={<EditImageInfo/>}></Route>
+          </Route>
+
           {/* <Route path='/modaltest'  element={<Modal/>}></Route> */}
         </Routes>
       

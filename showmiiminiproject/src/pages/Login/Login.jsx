@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
 import "./Login.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { baseUrl } from "../../api/axios"
 import { Oval } from "react-loader-spinner"
@@ -26,8 +26,15 @@ export default function Login(){
             borderRadius: "30px",
         }
     })
-
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    const userlog = JSON.parse(localStorage.getItem("showmiiuser"))
+    useEffect(()=>{
+        if(userlog){
+            navigate("/explore")
+        }
+        // <Outlet/>
+    }, [])
     
     function handleUsername(e){
         setFormInput({...formInput, username : e.target.value})
@@ -37,7 +44,6 @@ export default function Login(){
         setFormInput({...formInput, password : e.target.value})
         console.log(formInput)
     }
-
     async function loginUser(userdata){
         await axios.get(baseUrl+"/users?username="+userdata.username+"&password="+userdata.password)
         .then((response)=>{
@@ -51,12 +57,21 @@ export default function Login(){
                 console.log("response:",response)
                 setLoading(false) //disini mungkin ga perlu set lading flase idk soalnya kan entar di navigate
                 setAlert({...alert, m: "Logging in", style: {...alert.style, backgroundColor: "#4d8553"}})
+                localStorage.removeItem("showmiiuser")
+                localStorage.setItem('showmiiuser', JSON.stringify(userdata))
+                const test = JSON.parse(localStorage.getItem("showmiiuser"))
+                console.log(test)
+                if(!test){
+                    console.log("it says its true")
+                }
+
+                navigate("/explore")
+
             }
 
             
         })
     }
-
     function handleSubmit(e){
         e.preventDefault()
 

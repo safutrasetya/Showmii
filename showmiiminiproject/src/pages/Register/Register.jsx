@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
 import "./Register.css"
@@ -32,12 +32,19 @@ export default function Register(){
     })
     const [loading, setLoading] = useState(false)
 
+    const userlog = JSON.parse(localStorage.getItem("showmiiuser"))
+    useEffect(()=>{
+        if(userlog){
+            navigate("/explore")
+        }
+        // <Outlet/>
+    }, [])
+
 
     function handleEmail(e){
         setFormInput({...formInput, email : e.target.value})
         console.log(formInput)
     }
-    
     function handleUsername(e){
         setFormInput({...formInput, username : e.target.value})
         console.log(formInput)
