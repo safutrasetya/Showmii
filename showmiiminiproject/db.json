@@ -1,0 +1,307 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "email@gmail.com",
+      "username": "testerr",
+      "password": "1234"
+    },
+    {
+      "id": 2,
+      "email": "safutrasetya@gmail.com",
+      "username": "safutra",
+      "password": "12345"
+    },
+    {
+      "id": 3,
+      "email": "aaahyug@gmail.com",
+      "username": "guyhaa",
+      "password": "12342"
+    },
+    {
+      "email": "testin@yyy.tiii",
+      "username": "qwer",
+      "password": "asdasd",
+      "id": 4
+    },
+    {
+      "email": "testin@yyy.tiiia",
+      "username": "qwer",
+      "password": "asdasd",
+      "id": 5
+    },
+    {
+      "email": "testian@yyy.tiiia",
+      "username": "qwer",
+      "password": "asdasd",
+      "id": 6
+    },
+    {
+      "email": "testian2@yyy.tiiia",
+      "username": "qwer",
+      "password": "asdasd",
+      "id": 7
+    },
+    {
+      "email": "testiasan2@yyy.tiiia",
+      "username": "qwer",
+      "password": "asdasd",
+      "id": 8
+    },
+    {
+      "email": "testiasan2@yyy.ti",
+      "username": "qwer",
+      "password": "asdasd",
+      "id": 9
+    },
+    {
+      "email": "testiasasdan2@yyy.ti",
+      "username": "qwer",
+      "password": "asdasd",
+      "id": 10
+    },
+    {
+      "email": "tesn2@yyy.ti",
+      "username": "qwer",
+      "password": "asdasd",
+      "id": 11
+    },
+    {
+      "email": "te2qsn2@yyy.ti",
+      "username": "qwers",
+      "password": "asdasd",
+      "id": 12
+    },
+    {
+      "email": "tde2qsn2@yyy.ti",
+      "username": "qwers",
+      "password": "asdasd",
+      "id": 13
+    },
+    {
+      "email": "ryey@erty.iu",
+      "username": "324t",
+      "password": "qwer",
+      "id": 14
+    },
+    {
+      "email": "ryey@erty.iuasd",
+      "username": "324twe",
+      "password": "qwer",
+      "id": 15
+    },
+    {
+      "email": "safuu@t.yu",
+      "username": "safuu2",
+      "password": "ghwrgy",
+      "id": 16
+    },
+    {
+      "email": "SE@erfh.syj",
+      "username": "e",
+      "password": "WEG",
+      "id": 17
+    },
+    {
+      "email": "SE@eraffh.syj",
+      "username": "eae",
+      "password": "WEG",
+      "id": 18
+    },
+    {
+      "email": "SweE@eraffh.syj",
+      "username": "eaewet",
+      "password": "WEG",
+      "id": 19
+    },
+    {
+      "email": "asd2@wet.sryj",
+      "username": "as",
+      "password": "as",
+      "id": 20
+    },
+    {
+      "email": "as32d2@wet.sryj",
+      "username": "asasd",
+      "password": "as",
+      "id": 21
+    }
+  ],
+  "imageposts": [
+    {
+      "userid": 100,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 1",
+      "imagedesc": "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
+      "id": "1"
+    },
+    {
+      "userid": 24,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 2",
+      "imagedesc": "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
+      "id": "2"
+    },
+    {
+      "userid": 57,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 3",
+      "imagedesc": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
+      "id": "3"
+    },
+    {
+      "userid": 34,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 4",
+      "imagedesc": "The Football Is Good For Training And Recreational Purposes",
+      "id": "4"
+    },
+    {
+      "userid": 65,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 5",
+      "imagedesc": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "id": "5"
+    },
+    {
+      "userid": 12,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 6",
+      "imagedesc": "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
+      "id": "6"
+    },
+    {
+      "userid": 12,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 7",
+      "imagedesc": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
+      "id": "7"
+    },
+    {
+      "userid": 38,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 8",
+      "imagedesc": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      "id": "8"
+    },
+    {
+      "userid": 66,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 9",
+      "imagedesc": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "id": "9"
+    },
+    {
+      "userid": 51,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 10",
+      "imagedesc": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "id": "10"
+    },
+    {
+      "userid": 73,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 11",
+      "imagedesc": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      "id": "11"
+    },
+    {
+      "userid": 100,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 12",
+      "imagedesc": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
+      "id": "12"
+    },
+    {
+      "userid": 66,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 13",
+      "imagedesc": "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+      "id": "13"
+    },
+    {
+      "userid": 59,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 14",
+      "imagedesc": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "id": "14"
+    },
+    {
+      "userid": 14,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 15",
+      "imagedesc": "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+      "id": "15"
+    },
+    {
+      "userid": 11,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 16",
+      "imagedesc": "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+      "id": "16"
+    },
+    {
+      "userid": 20,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 17",
+      "imagedesc": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "id": "17"
+    },
+    {
+      "userid": 23,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 18",
+      "imagedesc": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+      "id": "18"
+    },
+    {
+      "userid": 12,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 19",
+      "imagedesc": "The Football Is Good For Training And Recreational Purposes",
+      "id": "19"
+    },
+    {
+      "userid": 54,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 20",
+      "imagedesc": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "id": "20"
+    },
+    {
+      "userid": 54,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 21",
+      "imagedesc": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "id": "21"
+    },
+    {
+      "userid": 83,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 22",
+      "imagedesc": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+      "id": "22"
+    },
+    {
+      "userid": 40,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 23",
+      "imagedesc": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "id": "23"
+    },
+    {
+      "userid": 60,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 24",
+      "imagedesc": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      "id": "24"
+    },
+    {
+      "userid": 96,
+      "imageurl": "https://loremflickr.com/640/480/abstract",
+      "imagename": "imagename 25",
+      "imagedesc": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "id": "25"
+    }
+  ]
+}

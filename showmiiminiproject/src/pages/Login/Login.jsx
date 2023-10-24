@@ -3,6 +3,9 @@ import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
 import "./Login.css"
 import { Link } from "react-router-dom"
+import axios from "axios"
+import { baseUrl } from "../../api/axios"
+import { Oval } from "react-loader-spinner"
 
 export default function Login(){
     const [formInput, setFormInput] = useState({
@@ -13,6 +16,18 @@ export default function Login(){
         errusername: "",
         errpassword: ""
     })
+    const [alert, setAlert] = useState({
+        m: "",
+        style: {
+            backgroundColor: "#ff7575",
+            color: "white",
+            transition: "0.5s",
+            padding: "5px 15px",
+            borderRadius: "30px",
+        }
+    })
+
+    const [loading, setLoading] = useState(false)
     
     function handleUsername(e){
         setFormInput({...formInput, username : e.target.value})
@@ -21,6 +36,25 @@ export default function Login(){
     function handlePassword(e){
         setFormInput({...formInput, password : e.target.value})
         console.log(formInput)
+    }
+
+    async function loginUser(userdata){
+        await axios.get(baseUrl+"/users?username="+userdata.username+"&password="+userdata.password)
+        .then((response)=>{
+            if(response.data.length == 0){
+                console.log("User not logged in")
+                console.log("response:",response)
+                setLoading(false)
+                setAlert({...alert, m: "Username or password is wrong.", style: {...alert.style, backgroundColor: "#ff7575"}})
+            }else{
+                console.log("Logging user in")
+                console.log("response:",response)
+                setLoading(false) //disini mungkin ga perlu set lading flase idk soalnya kan entar di navigate
+                setAlert({...alert, m: "Logging in", style: {...alert.style, backgroundColor: "#4d8553"}})
+            }
+
+            
+        })
     }
 
     function handleSubmit(e){
@@ -52,6 +86,9 @@ export default function Login(){
                     errpassword: "Password can not be empty."
                 })
             }else{//if all valid
+
+                setLoading(true)
+                loginUser(formInput)
                 console.log("Data accepted : ", formInput)
                 setError({
                     errusername: "",
@@ -91,8 +128,33 @@ export default function Login(){
                                     <input onChange={handlePassword} className="input-text fonts20" type="password" id="passwhord"></input>
                                 </div>
                                 <div className="form-part">
-                                    <div className="form-final-btn">
-                                        <button className="btn-classic purple-btn btn-form fonts24 fontw500" type="submit">Login</button>
+                                {
+                                    alert.m ? 
+                                    <p style={alert.style}>{alert.m}</p> :
+                                    <></>
+                                }
+                                    
+                                </div>
+                                <div className="form-part">
+                                    <div className="login-form-final-btn">
+
+                                        {
+                                            loading ? 
+                                            <Oval
+                                            height={30}
+                                            width={30}
+                                            color="white"
+                                            wrapperStyle={{}}
+                                            wrapperClass=""
+                                            visible={true}
+                                            ariaLabel='oval-loading'
+                                            secondaryColor="green"
+                                            strokeWidth={2}
+                                            strokeWidthSecondary={2}
+                                            /> :
+                                            <button className="btn-classic purple-btn btn-form fonts24 fontw500" type="submit">Login</button>
+                                        }
+
                                     </div>
                                 </div>
                             </form>

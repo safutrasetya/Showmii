@@ -80,7 +80,10 @@
 .btn-form{
     width: 100%;
 }
-
+.login-form-final-btn{
+    display: flex;
+    justify-content: center;
+}
 .purple-btn{
     background-color: #8338EC;
     color: white;
