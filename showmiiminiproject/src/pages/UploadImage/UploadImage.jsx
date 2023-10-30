@@ -32,7 +32,7 @@ export default function UploadImage(){
     })
     const [finished, setFinished] = useState({
         status : false,
-        link : "/"
+        link : ""
     })
 
 
@@ -156,7 +156,8 @@ export default function UploadImage(){
     function cekDB(){
         const timestamp = new Date().getTime()
         const randomchar = Math.random().toString(36).substring(2, 10)
-        const imageid = timestamp+"-" +randomchar+"-"+formInput.imgname
+        const imgfixedname = formInput.imgname.replace(/[\/\s]/g, '_');
+        const imageid = timestamp+"-" +randomchar+"-"+imgfixedname
         const dbRef = refToDB(db);
         get(child(dbRef, `imageposts/${imageid}`)).then((snapshot) => {
             if (snapshot.exists()) {

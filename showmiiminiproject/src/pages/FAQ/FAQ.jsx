@@ -5,7 +5,7 @@ import "./FAQ.css"
 import OpenAI  from "openai";
 import { ThreeDots } from  'react-loader-spinner'
 import { aiQNA } from "../../haddata/QNA";
-
+const opeanoapikey = import.meta.env.VITE_OPENAI_API_KEY
 
 
 export default function FAQ(){
@@ -14,7 +14,7 @@ export default function FAQ(){
     const [loading, setLoading] = useState(false)
 
     const conf = {
-        apiKey : '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',
+        apiKey : opeanoapikey,
         dangerouslyAllowBrowser: true
     };
     const openai = new OpenAI(conf);

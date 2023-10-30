@@ -4,8 +4,8 @@ import "../../essentialcss/essentialcss.css"
 import "./EditImageInfo.css"
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ref as refToDB, set, child, get, push, update } from "firebase/database"
-import { db, showmiistorage } from "../../config/firebase"
+import { ref as refToDB, child, get, update } from "firebase/database"
+import { db } from "../../config/firebase"
 import DeleteImageFromStorage from "../../components/DeleteImageFunc/DeleteImageFunc";
 
 
@@ -40,6 +40,20 @@ export default function EditImageInfo(){
     const {imageid} = useParams()
     const navigate = useNavigate()
 
+    
+    function handleImgName(e){
+        setFormInput({...formInput, imgname : e.target.value})
+        console.log(formInput)
+    }
+    function handleImgDesc(e){
+        setFormInput({...formInput, imgdesc : e.target.value})
+        console.log(formInput)
+    }
+
+    useEffect(()=>{
+        getImageData()
+    }, [])
+
     function getImageData(){
         const dbRef = refToDB(db);
         get(child(dbRef, `imageposts/${imageid}`)).then((snapshot) => {
@@ -68,19 +82,6 @@ export default function EditImageInfo(){
             console.error(error);
         });
     }
-
-    function handleImgName(e){
-        setFormInput({...formInput, imgname : e.target.value})
-        console.log(formInput)
-    }
-    function handleImgDesc(e){
-        setFormInput({...formInput, imgdesc : e.target.value})
-        console.log(formInput)
-    }
-
-    useEffect(()=>{
-        getImageData()
-    }, [])
 
     function updateImageData(){
         setLoading(true)
@@ -131,8 +132,6 @@ export default function EditImageInfo(){
                         style : {...alert.style, backgroundColor: "#ff7575"}
                     })
                     console.log(delstatus)
-                    
-
                 }
                 setLoading(false)
             })
@@ -160,8 +159,6 @@ export default function EditImageInfo(){
             setAlert({...alert, m: ""})
         
         }
-
-
     }
 
     function handleDelete(){
