@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
 import "./Register.css"
-import { baseUrl } from "../../api/axios"
-import axios from "axios"
 import { Oval } from "react-loader-spinner"
-
 import { Link } from "react-router-dom"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { ref, set, child, get } from "firebase/database"
+import { db, auth } from "../../config/firebase"
 
 export default function Register(){
 
@@ -37,7 +37,6 @@ export default function Register(){
         if(userlog){
             navigate("/explore")
         }
-        // <Outlet/>
     }, [])
 
 
@@ -46,55 +45,60 @@ export default function Register(){
         console.log(formInput)
     }
     function handleUsername(e){
-        setFormInput({...formInput, username : e.target.value})
         console.log(formInput)
+        if(e.target.value.length > 50){
+            setError({...error,
+                errusername: "Username must not exceed 50 characters!",
+            })
+        }else{
+            setFormInput({...formInput, username : e.target.value})
+            setError({...error,
+                errusername: ""
+            })
+        }
     }
     function handlePassword(e){
-        setFormInput({...formInput, password : e.target.value})
+        
         console.log(formInput)
-    }
-
-    async function checkUserEmail(userdata){
-        const response = await axios.get(baseUrl+"/users?email="+userdata.email)
-        if(response.data.length > 0){
-            setAlert({...alert, m: "User with that email already exists.", style: {...alert.style, backgroundColor: "#ff7575"}})
-            return true
+        if(e.target.value.length < 6){
+            setError({...error,
+                errpassword: "Password must contain at least 6 characters!",
+            })
         }else{
-            return false
+            setFormInput({...formInput, password : e.target.value})
+            setError({...error,
+                errpassword: ""
+            })
         }
     }
-    async function checkUserName(userdata){
-        const response = await axios.get(baseUrl+"/users?username="+userdata.username)
-        if(response.data.length > 0){
-            setAlert({...alert, m: "User with that username already exists.", style: {...alert.style, backgroundColor: "#ff7575"}})
-            return true
-        }else{
-            return false
-        }
-    }
-    async function userRegister(userdata){
-        await axios.post(baseUrl+"/users", userdata)
-        .then((response)=>{
-            if(response.statusText === "Created"){
-                setAlert({...alert, m: "User registered. You can now login", style: {...alert.style, backgroundColor: "#4d8553"}})
-            }else{
-                setAlert({...alert, m: "Something is wrong. Failed to register user.", style: {...alert.style, backgroundColor: "#ff7575"}})
-            }
-            console.log(response)
-        })
-    }
 
-    async function registerUser(userdata){
+    function addToAuth(userdata){
         try{
+            createUserWithEmailAndPassword(auth, userdata.email, userdata.password)
+            .then((userCredential) => {
+                updateProfile(auth.currentUser,{
+                    displayName: userdata.username
+                }).then(()=>{
+                    const userlogged = { email : userCredential.user.email, username: userCredential.user.displayName }
+                    localStorage.setItem('showmiiuser', JSON.stringify(userlogged))
 
-            const emailcek = await checkUserEmail(userdata)
-            const usernamecek = await checkUserName(userdata)
-
-            if(!emailcek && !usernamecek){
-                await userRegister(userdata)
-            }else if(emailcek && usernamecek){
-                setAlert({...alert, m: "User with that email & name already exists.", style: {...alert.style, backgroundColor: "#ff7575"}})
-            }
+                    setAlert({...alert, m: "User registered. You are now logged in!", style: {...alert.style, backgroundColor: "#4d8553"}})
+                    navigate("/explore")
+                })
+            })
+            .catch((error) => {
+                console.log("err code:", error.code)
+                console.log("err message:", error.message)
+                console.log(error)
+                switch(error.code){
+                    case "auth/email-already-in-use":
+                        setAlert({...alert, m: "User with that email already exists.", style: {...alert.style, backgroundColor: "#ff7575"}})
+                        break;
+                    default:
+                        setAlert({...alert, m: "Something is wrong. Failed to register user.", style: {...alert.style, backgroundColor: "#ff7575"}})
+                        break
+                }
+            });
 
         }catch(e){
             setAlert({...alert, m: "Something is wrong. Failed to register user.", style: {...alert.style, backgroundColor: "#ff7575"}})
@@ -104,7 +108,36 @@ export default function Register(){
         
     }
 
-    
+    function registUser(userdata){
+        const dbRef = ref(db)
+
+        get(child(dbRef, `users/${userdata.username}`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val())
+                setAlert({...alert, m: "User with that username already exists.", style: {...alert.style, backgroundColor: "#ff7575"}})
+                setLoading(false)
+
+            } else {
+                console.log("No data available. we can create the user")
+                set(ref(db, 'users/'+userdata.username ), {
+                    username: userdata.username,
+                    email: userdata.email,
+                }).then(()=>{
+                    console.log("Data saved successfuly")
+                    addToAuth(userdata)
+
+                }).catch((e)=>{
+                    console.log("from add to  DB", e)
+                })
+            }
+        }).catch((error) => {
+            console.error(error)
+        })
+
+
+
+        
+    }
 
     function handleSubmit(e){
         e.preventDefault()
@@ -121,9 +154,9 @@ export default function Register(){
                     errpassword: ""
                 })
             }else if(emailpattern.test(formInput.email) == false){
-                console.log("invalid email format.")
+                console.log("Invalid email format.")
                 setError({...error,
-                    erremail: "invalid email format.",
+                    erremail: "Invalid email format.",
                     errusername: "",
                     errpassword: ""
                 })
@@ -141,12 +174,26 @@ export default function Register(){
                     errusername: "Username cant have special characters!",
                     errpassword: ""
                 })
+            }else if(formInput.username.length > 50){
+                console.log("Username must not be empty!")
+                setError({...error,
+                    erremail: "",
+                    errusername: "Username must not exceed 50 characters!",
+                    errpassword: ""
+                })
             }else if(formInput.password == ""){
                 console.log("Password can not be empty.")
                 setError({...error,
                     erremail: "",
                     errusername: "",
                     errpassword: "Password can not be empty."
+                })
+            }else if(formInput.password.length < 6){
+                console.log("Password must atleast contain 6 characters")
+                setError({...error,
+                    erremail: "",
+                    errusername: "",
+                    errpassword: "Password must at least contain 6 characters!"
                 })
             }else{//=====================================================================if all valid
 
@@ -156,14 +203,14 @@ export default function Register(){
                     password: formInput.password,
                 }
                 setLoading(true) //akan di set ke false di fungsi inivv
-                registerUser(newdata).then(()=>{
-                    console.log("Data accepted (doesnt mean its in db) : ", formInput)
-                    setError({
-                        erremail: "",
-                        errusername: "",
-                        errpassword: ""
-                    })
+                registUser(newdata)
+                console.log("Data accepted (doesnt mean its in db) : ", formInput)
+                setError({
+                    erremail: "",
+                    errusername: "",
+                    errpassword: ""
                 })
+                
 
 
                 

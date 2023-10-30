@@ -21,6 +21,23 @@
 
 .modal-header{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+}
+
+.modal-content-container{
+    display: flex;
+    justify-content: center;
+}
+
+.modal-btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.modal-containerbtns{
+    display: flex;
+    justify-content: right;
 }

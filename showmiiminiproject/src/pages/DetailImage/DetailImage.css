@@ -24,3 +24,23 @@
     margin-bottom: 30px;
     text-shadow: 2px 2px 2px #FFF;
 }
+
+.image-detail-header-div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.image-detail-align-to-mid{
+    align-items: center;
+}
+
+.p-loading{
+    background-color: #2471c9;
+    color: white;
+    transition: 0.5s;
+    padding: 5px 15px;
+    border-radius: 30px;
+    align-items: center;
+    display: flex;
+    text-shadow: none;
+}

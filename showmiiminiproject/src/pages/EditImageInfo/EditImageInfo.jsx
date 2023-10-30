@@ -2,9 +2,14 @@ import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import "../../essentialcss/essentialcss.css"
 import "./EditImageInfo.css"
-import TESTIMAGES from "../../testimage/TestImages";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { ref as refToDB, set, child, get, push, update } from "firebase/database"
+import { db, showmiistorage } from "../../config/firebase"
+import DeleteImageFromStorage from "../../components/DeleteImageFunc/DeleteImageFunc";
 
+
+import Modal from "../../components/Modal/Modal";
 
 export default function EditImageInfo(){
 
@@ -12,15 +17,133 @@ export default function EditImageInfo(){
         imgname: "" ,
         imgdesc : ""
     })
-    const [error, setError] = useState("")
+    const [alert, setAlert] = useState({
+        m: "",
+        style: {
+            backgroundColor: "#ff7575",
+            color: "white",
+            transition: "0.5s",
+            padding: "5px 15px",
+            borderRadius: "30px",
+        }
+    })
+    const [imageNonInput, setImageNonImput]= useState({
+        imageurl: "",
+        imageid: "",
+        imageposter: ""
+    })
+    const [loading, setLoading] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
+    const [finished, setFinished] = useState(false)
+
+
+    const {imageid} = useParams()
+    const navigate = useNavigate()
+
+    function getImageData(){
+        const dbRef = refToDB(db);
+        get(child(dbRef, `imageposts/${imageid}`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                const data = snapshot.val()
+                setImageNonImput({
+                    imageurl: data.imageurl,
+                    imageid: imageid,
+                    imageposter: data.imageposter
+                })
+
+                setFormInput({
+                    imgdesc: data.imagedesc,
+                    imgname: data.imagename
+                })
+            } else {
+                setAlert({...alert, m: "Image not found.", style: {...alert.style, backgroundColor: "#ff7575"}})
+                console.log("No data available we can put it inside");
+                navigate("/err404")
+
+
+            }
+        }).catch((error) => {
+            setAlert({...alert, m: "Something is wrong", style: {...alert.style, backgroundColor: "#ff7575"}})
+            console.error(error);
+        });
+    }
+
     function handleImgName(e){
         setFormInput({...formInput, imgname : e.target.value})
         console.log(formInput)
     }
-
     function handleImgDesc(e){
         setFormInput({...formInput, imgdesc : e.target.value})
         console.log(formInput)
+    }
+
+    useEffect(()=>{
+        getImageData()
+    }, [])
+
+    function updateImageData(){
+        setLoading(true)
+        const newdata = {
+            imagename: formInput.imgname,
+            imagedesc: formInput.imgdesc,
+            imageurl: imageNonInput.imageurl,
+            imageposter: imageNonInput.imageposter,
+        }
+        const updates = {}
+        updates['imageposts/' + imageid] = newdata
+        update(refToDB(db), updates).then(()=>{
+            setAlert({
+                ...alert, m: "Successfully updated!",
+                style : {...alert.style, backgroundColor: "#4d8553"}
+            })
+            setLoading(false)
+            setFinished(true)
+        }).catch((e)=>{
+            setAlert({
+                ...alert, m: "Somethig is wrong...",
+                style : {...alert.style, backgroundColor: "#ff7575"}
+            })
+            console.log("Something is wrong when updating the image info", e)
+            setLoading(false)
+        });
+
+
+
+    }
+
+    function deleteImageData(){
+        setOpenModal(false)
+        setLoading(true)
+        const updates = {}
+        updates['imageposts/' + imageid] = null
+        update(refToDB(db), updates).then(()=>{
+            DeleteImageFromStorage(imageid).then((res) => {
+                if(res == "success"){
+                    setAlert({
+                        ...alert, m: "Successfully deleted! Redirecting...",
+                        style : {...alert.style, backgroundColor: "#4d8553"}
+                    })
+                    setTimeout(navigate("/explore"), 1000);
+                }else{
+                    setAlert({
+                        ...alert, m: "Something is wrong...",
+                        style : {...alert.style, backgroundColor: "#ff7575"}
+                    })
+                    console.log(delstatus)
+                    
+
+                }
+                setLoading(false)
+            })
+        }).catch((e)=>{
+            setAlert({
+                ...alert, m: "Something is wrong...",
+                style : {...alert.style, backgroundColor: "#ff7575"}
+            })
+            console.log("something is wrong when deleting from database", e)
+        });
+
     }
 
     function handleSubmit(e){
@@ -28,21 +151,34 @@ export default function EditImageInfo(){
         const pattern = /[{}+=><`;\:]/
         // validasi
         if(formInput.imgname == ""){
-            setError("Image name can not be empty")
+            setAlert({...alert, m: "Image name can not be empty", status : "NOT OK"})
         }else if(pattern.test(formInput.imgname)){
-            setError("Image name must not contain {}+=><`;\\: characters!")
+            setAlert({...alert, m: "Image name must not contain {}+=><`;\\: characters!", status : "NOT OK"})
         }else{ // if all valid
             console.log("Data accepted ", formInput)
-            setError("")
+            updateImageData()
+            setAlert({...alert, m: ""})
         
         }
 
 
     }
 
+    function handleDelete(){
+        setOpenModal(true)
+    }
+
     return(
         <>
+            <Modal 
+            modalheader={"Delete image"}  
+            modalcontent={"Are you sure you want to delete this image?"}
+            modalyesbtnstyle={"btn-classic red-btn me-4 fontw700"}
+            modalnobtnstyle={"btn-classic blue-btn fontw700"}
+
+            openStatus={openModal} onYes={deleteImageData} closeModal={()=> setOpenModal(false)}  />
             <Navbar/>
+
                 <div className="minimum-bg-height background-blue">
                     <div className="main-container">
                         <div className="page-title">
@@ -50,41 +186,49 @@ export default function EditImageInfo(){
                         </div>
                         <div className="main-div">
                             <div className="sub-maindiv-image">
-                                <img className="image-show" src={TESTIMAGES.image1} />
+                                <img className="image-show" src={imageNonInput.imageurl} />
                             </div>
                             <div className="sub-maindiv-infos">
                                 <div className="form-container">
                                     <form onSubmit={handleSubmit}>
                                         <div className="form-part">
                                             <label className="input-label fonts32 fontw500" htmlFor="inputimgname">Image Name : </label>
-                                            <input onChange={handleImgName} className="input-imagename" name="inputimgname" type="text"/>
+                                            <input value={formInput.imgname} onChange={handleImgName} className="input-imagename" name="inputimgname" type="text"/>
                                         </div>
                                         <div className="form-part">
                                             <label className="input-label fonts24 fontw700" htmlFor="inputimgname">Image Description :</label>
-                                            <textarea onChange={handleImgDesc} className="input-imagedesc" name="inputimgname" type="text"></textarea>
+                                            <textarea value={formInput.imgdesc} onChange={handleImgDesc} className="input-imagedesc" name="inputimgname" type="text"></textarea>
                                         </div>
                                         <div className="form-part">
 
-                                            {error ? 
-                                                <div className="alert">
-                                                    <div className="alert alert-danger" role="alert">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-                                                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                                                        </svg>
-                                                        <span className="font-roboto removemargin"> {error}</span>
-                                                    </div>
-                                                </div> :
+                                            {
+                                                alert.m ? 
+                                                <p style={alert.style}>
+                                                    {alert.m}
+                                                </p> :
+                                                loading ? 
+                                                <p className="p-processing">Processing...</p> :
                                                 <></>
                                             }
                                             
                                         </div>
                                         <div className="form-final-container">
                                             <div>
-                                                <button className="btn-classic red-btn font-roboto fonts20 fontw700" type="button">Delete</button>
+                                                <button onClick={handleDelete} className="btn-classic red-btn font-roboto fonts20 fontw700" type="button">Delete</button>
                                             </div>
                                             <div>
                                                 
-                                                <button className="btn-classic cancel-btn font-roboto fonts20 fontw700" type="button">Cancel</button>
+                                                {
+                                                    finished ? 
+                                                    <Link to={"/detailimage/"+imageid}>
+                                                        <button className="btn-classic btn-darkblue text-white font-roboto fonts20 fontw700 cek-btn" type="button">Check</button>
+                                                    </Link>
+                                                    :
+                                                    <></>
+                                                }
+                                                
+                                                <button onClick={()=> { navigate(-1)}} className="btn-classic cancel-btn font-roboto fonts20 fontw700" type="button">Cancel</button>
+                                                
                                                 <button className="btn-classic finish-btn text-white font-roboto fonts20 fontw700" type="submit">Finished</button>
                                             </div>
                                         </div>

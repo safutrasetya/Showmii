@@ -107,10 +107,11 @@
 
 }
 
-.form-part-final{
+.uploadimg-form-part-final{
     display: flex;
     justify-content: right;
     margin-top: 65px;
+    align-items: center;
 }
 
 .image-show1{

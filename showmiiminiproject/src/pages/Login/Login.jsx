@@ -3,17 +3,17 @@ import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
 import "./Login.css"
 import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
-import { baseUrl } from "../../api/axios"
 import { Oval } from "react-loader-spinner"
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth"
+import { auth } from "../../config/firebase"
 
 export default function Login(){
     const [formInput, setFormInput] = useState({
-        username : "",
+        email : "",
         password : ""
     })
     const [error, setError] = useState({
-        errusername: "",
+        erremail: "",
         errpassword: ""
     })
     const [alert, setAlert] = useState({
@@ -28,76 +28,85 @@ export default function Login(){
     })
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
-    const userlog = JSON.parse(localStorage.getItem("showmiiuser"))
+    
     useEffect(()=>{
-        if(userlog){
-            navigate("/explore")
-        }
-        // <Outlet/>
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                navigate("/explore")
+            }
+        });
     }, [])
     
-    function handleUsername(e){
-        setFormInput({...formInput, username : e.target.value})
+    function handleEmail(e){
+        setFormInput({...formInput, email : e.target.value})
         console.log(formInput)
     }
     function handlePassword(e){
         setFormInput({...formInput, password : e.target.value})
         console.log(formInput)
     }
-    async function loginUser(userdata){
-        await axios.get(baseUrl+"/users?username="+userdata.username+"&password="+userdata.password)
-        .then((response)=>{
-            if(response.data.length == 0){
-                console.log("User not logged in")
-                console.log("response:",response)
-                setLoading(false)
-                setAlert({...alert, m: "Username or password is wrong.", style: {...alert.style, backgroundColor: "#ff7575"}})
-            }else{
-                console.log("Logging user in")
-                console.log("response:",response)
-                setLoading(false) //disini mungkin ga perlu set lading flase idk soalnya kan entar di navigate
-                setAlert({...alert, m: "Logging in", style: {...alert.style, backgroundColor: "#4d8553"}})
-                localStorage.removeItem("showmiiuser")
-                localStorage.setItem('showmiiuser', JSON.stringify(userdata))
-                const test = JSON.parse(localStorage.getItem("showmiiuser"))
-                console.log(test)
-                if(!test){
-                    console.log("it says its true")
-                }
 
-                navigate("/explore")
+    function loginUser(userdata){
+        signInWithEmailAndPassword(auth, userdata.email, userdata.password)
+        .then((userCredential) => {
+            console.log(userCredential)
+            setAlert({...alert, m: "Logging in", style: {...alert.style, backgroundColor: "#4d8553"}})
+            setLoading(false)
+            const userlogged = { email : userCredential.user.email, username: userCredential.user.displayName }
+            localStorage.removeItem("showmiiuser")
+            localStorage.setItem('showmiiuser', JSON.stringify(userlogged))
+            navigate("/explore")
 
+        })
+        .catch((error) => {
+            switch(error) {
+                case "auth/invalid-login-credentials":
+                    setAlert({...alert, m: "Username or password is wrong.", style: {...alert.style, backgroundColor: "#ff7575"}})
+                    
+                    console.log(error.code,"", error.message, "what type?", typeof error.code)
+                    break;
+                case "auth/too-many-requests":
+                    setAlert({...alert, m: "Too many tries.. Try again later", style: {...alert.style, backgroundColor: "#ff7575"}})
+                    
+                    console.log(error.code,"", error.message, "what type?", typeof error.code)
+                    break;
+                default : 
+                    setAlert({...alert, m: "Hmmm...Something is wrong...", style: {...alert.style, backgroundColor: "#ff7575"}})
+                    
+                    console.log(error.code,"", error.message, "what type?", typeof error.code)
+                    break;
             }
+            setLoading(false)
 
-            
         })
     }
+
     function handleSubmit(e){
         e.preventDefault()
 
         // valdiasi
         try{
-            const usernpattern = /[!@#$%^&*()_+\-=\[\]{}|\\;:'",<>\/?]/
+            const emailpattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
             
-            if(formInput.username == ""){
-                console.log("Username must not be empty!")
+            if(formInput.email == ""){
+                console.log("Email must not be empty!")
                 setError({...error,
-                    erremail: "",
-                    errusername: "Username must not be empty!",
+                    
+                    erremail: "Email must not be empty!",
                     errpassword: ""
                 })
-            }else if(usernpattern.test(formInput.username)){
-                console.log("Username cant have special characters!")
+            }else if(!emailpattern.test(formInput.email)){
+                console.log("Email format is wrong.")
                 setError({...error,
-                    erremail: "",
-                    errusername: "Username cant have special characters!",
+                    
+                    erremail: "Email cant have special characters!",
                     errpassword: ""
                 })
             }else if(formInput.password == ""){
                 console.log("Password can not be empty.")
                 setError({...error,
+                    
                     erremail: "",
-                    errusername: "",
                     errpassword: "Password can not be empty."
                 })
             }else{//if all valid
@@ -106,7 +115,7 @@ export default function Login(){
                 loginUser(formInput)
                 console.log("Data accepted : ", formInput)
                 setError({
-                    errusername: "",
+                    erremail: "",
                     errpassword: ""
                 })
             }
@@ -130,10 +139,10 @@ export default function Login(){
                             <form onSubmit={handleSubmit}>
                                 <div className="form-part">
                                     <div className="login-input-label-container">
-                                        <label className="input-label fonts24 fontw500" htmlFor="username">Username</label>
-                                        <p className="login-input-error fontw500">{error.errusername}</p>
+                                        <label className="input-label fonts24 fontw500" htmlFor="email">Email</label>
+                                        <p className="login-input-error fontw500">{error.erremail}</p>
                                     </div>
-                                    <input onChange={handleUsername} className="input-text fonts20 " type="text" id="username"></input>
+                                    <input onChange={handleEmail} className="input-text fonts20 " type="text" id="email"></input>
                                 </div>
                                 <div className="form-part">
                                     <div className="login-input-label-container">

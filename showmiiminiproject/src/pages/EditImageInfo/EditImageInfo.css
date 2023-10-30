@@ -83,3 +83,15 @@
     background-color: rgb(229, 122, 145);
     box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.25);
 }
+
+.p-processing {
+    background-color: #2471c9;
+    color : white;
+    transition: 0.5s;
+    padding: 5px 15px;
+    border-radius: 30px;
+}
+
+.cek-btn{
+    margin-right: 12px;
+}

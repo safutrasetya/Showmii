@@ -2,6 +2,7 @@ import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
 
 import "./LandingPage.css"
+import { Link } from "react-router-dom"
 
 function LandingPage(){
 
@@ -15,9 +16,9 @@ function LandingPage(){
                             <p className="fonts64 fontw700">Share your Images with millions around the world!</p>
                         </div>
                         <div className="jumbobtn">
-                            <a href="#">
+                            <Link to="/login">
                                 <button className="fonts36 fontw700 btn-jumbo">Get on with it</button>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     <div className="sub-jumbotron">
@@ -38,9 +39,9 @@ function LandingPage(){
                 </div>
                 <div className="container-join removemargin">
                     <p className="fonts64 fontw700 ">So what are you waiting for?</p>
-                    <a>
+                    <Link to="/login">
                         <button className="fonts36 fontw700 btn-jumbo join">Join Us</button>
-                    </a>
+                    </Link>
                 </div>
             </div>
             <Footer/>

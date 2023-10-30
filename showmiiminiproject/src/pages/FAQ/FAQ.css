@@ -1,0 +1,21 @@
+.faq-form-div{
+    display: flex;
+}
+
+.ai-container{
+    background-color: rgb(131, 199, 255);
+    border-radius: 20px;
+    padding: 10px 25px;
+    margin-top: 25px;
+    display:flex;
+    justify-content: left;
+}
+
+.ai-p{
+    width: 40px;
+
+}
+
+.ai-answer{
+    margin-left: 10px;
+}
